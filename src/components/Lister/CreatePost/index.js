@@ -8,7 +8,17 @@ const CreatePost = ({ onCreate }) => {
 	};
 
 	const postReducer = (state, { type, ...payload } ) => {
-		// TODO: implement action handlers
+		switch(type) {
+            case 'update':
+                return {
+                    ...state,
+                    [payload.key]: payload.value
+                }
+            case 'reset':
+                return {
+                    ...initialState
+                }
+        }
 	};
 
 	const [{title, body, author}, dispatch] = useReducer(postReducer, initialState)
