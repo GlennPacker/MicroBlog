@@ -15,25 +15,32 @@ const Lister = () => {
 		});
 	}, []);
 
-	return <div>TODO - wire up lister component</div>
-
 	const onDeletePost = (id) => {
-		// TODO: implement
+        setPosts((posts) => posts.filter(p => p.id !== id));
 	}
 
 	const onCreatePost = post => {
-		// TODO: implement
+        setPosts((posts) => [...posts, post]);
 	}
 
-	// TODO: implement render method, using Post and CreatePost e.g.
-	//				...
-	// 				<div className="postList">
-	//					...
-	//					<CreatePost />
-	// 				</div>
-	//				...
-
-
+    return (
+        loading ?
+        <>Loading... </> :
+        <div className="postList">
+            {
+                allPosts.length ?
+                allPosts.map((post, index) =>
+                    <Post
+                        key={index}
+                        {...post}
+                        onDelete={ () => onDeletePost(post.id) }
+                    />
+                )
+                : <>No posts available...</>
+            }
+            <CreatePost onCreate={ onCreatePost } />
+        </div>
+    )
 };
 
 export default Lister;
